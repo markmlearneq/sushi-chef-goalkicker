@@ -17,18 +17,18 @@ class GoalkickerChef(SushiChef):
 
     def construct_channel(self, **kwargs):
         channel = self.get_channel(**kwargs)
-        potato_topic = TopicNode(title="Potatoes!", source_id="<potatos_id>")
-        channel.add_child(potato_topic)
+        algorithms_topic = TopicNode(title="Algorithms Notes for Professionals book", source_id="algorithms")
+        channel.add_child(algorithms_topic)
         doc_node = DocumentNode(
-            title='Growing potatoes',
-            description='An article about growing potatoes on your rooftop.',
-            source_id='pubs/mafri-potatoe',
+            title='Algorithms Notes for Professionals',
+            description='',
+            source_id='goalkicker/AlgorithmsBook',
             license=get_license('CC BY', copyright_holder='University of Alberta'),
             language='en',
-            files=[DocumentFile(path='https://www.gov.mb.ca/inr/pdf/pubs/mafri-potatoe.pdf',
+            files=[DocumentFile(path='https://goalkicker.com/AlgorithmsBook/AlgorithmsNotesForProfessionals.pdf',
                                 language='en')],
         )
-        potato_topic.add_child(doc_node)
+        algorithms_topic.add_child(doc_node)
         return channel
 
 
