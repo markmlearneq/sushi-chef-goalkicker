@@ -23,7 +23,7 @@ class GoalkickerChef(SushiChef):
             title='Algorithms Notes for Professionals',
             description='',
             source_id='goalkicker/AlgorithmsBook',
-            license=get_license('CC BY', copyright_holder='University of Alberta'),
+            license=get_license('CC BY-SA', copyright_holder='Creative Commons'),
             language='en',
             files=[DocumentFile(path='https://goalkicker.com/AlgorithmsBook/AlgorithmsNotesForProfessionals.pdf',
                                 language='en')],
