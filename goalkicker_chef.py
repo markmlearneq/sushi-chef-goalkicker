@@ -5,7 +5,7 @@ from ricecooker.classes.files import DocumentFile
 from ricecooker.classes.licenses import get_license
 
 
-class SimpleChef(SushiChef):
+class GoalkickerChef(SushiChef):
     channel_info = {
         'CHANNEL_TITLE': 'Potatoes info channel',
         'CHANNEL_SOURCE_DOMAIN': '<domain.org>',         # where you got the content (change me!!)
@@ -35,8 +35,8 @@ class SimpleChef(SushiChef):
 if __name__ == '__main__':
     """
     Run this script on the command line using:
-        python simple_chef.py -v --reset --token=YOURTOKENHERE9139139f3a23232
+        python goalkicker_chef.py -v --reset --token=YOURTOKENHERE9139139f3a23232
     """
-    simple_chef = SimpleChef()
-    simple_chef.main()
+    goalkicker_chef = GoalkickerChef()
+    goalkicker_chef.main()
 
