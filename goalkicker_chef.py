@@ -7,12 +7,12 @@ from ricecooker.classes.licenses import get_license
 
 class GoalkickerChef(SushiChef):
     channel_info = {
-        'CHANNEL_TITLE': 'Potatoes info channel',
-        'CHANNEL_SOURCE_DOMAIN': '<domain.org>',         # where you got the content (change me!!)
-        'CHANNEL_SOURCE_ID': '<unique id for channel>',  # channel's unique id (change me!!)
-        'CHANNEL_LANGUAGE': 'en',                        # le_utils language code
-        'CHANNEL_THUMBNAIL': 'https://upload.wikimedia.org/wikipedia/commons/b/b7/A_Grande_Batata.jpg', # (optional)
-        'CHANNEL_DESCRIPTION': 'What is this channel about?',      # (optional)
+        'CHANNEL_TITLE': 'Goalkicker',
+        'CHANNEL_SOURCE_DOMAIN': 'goalkicker.com',
+        'CHANNEL_SOURCE_ID': 'goalkicker',
+        'CHANNEL_LANGUAGE': 'en',
+        'CHANNEL_THUMBNAIL': 'https://goalkicker.com/JavaScriptBook/JavaScriptGrow.png',
+        'CHANNEL_DESCRIPTION': 'Programming Notes for Professionals books',
     }
 
     def construct_channel(self, **kwargs):
