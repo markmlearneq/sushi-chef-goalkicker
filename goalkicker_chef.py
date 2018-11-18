@@ -11,7 +11,7 @@ class GoalkickerChef(SushiChef):
         'CHANNEL_SOURCE_DOMAIN': 'goalkicker.com',
         'CHANNEL_SOURCE_ID': 'goalkicker',
         'CHANNEL_LANGUAGE': 'en',
-        'CHANNEL_THUMBNAIL': 'https://goalkicker.com/JavaScriptBook/JavaScriptGrow.png',
+        'CHANNEL_THUMBNAIL': 'https://goalkicker.com/JavaScriptBook/JavaScriptGrow.png', # picked an arbitrary book cover
         'CHANNEL_DESCRIPTION': 'Programming Notes for Professionals books',
     }
 
