@@ -27,30 +27,34 @@ class GoalkickerChef(SushiChef):
         gk_response = requests.get(gk_url)
         gk_soup = BeautifulSoup(gk_response.text, 'html5lib')
 
-        algorithms_url = gk_url + gk_soup.find_all(class_='bookContainer')[1].find('a')['href']
-        algorithms_response = requests.get(algorithms_url)
-        algorithms_soup = BeautifulSoup(algorithms_response.text, 'html5lib')
+        els_with_page_urls = gk_soup.find_all(class_='bookContainer')
+        page_urls = [gk_url + el.find('a')['href'] for el in els_with_page_urls]
 
-        str_with_book_title = algorithms_soup.find(id='header').find('h1').get_text()
-        book_title = re.search('(.+) book', str_with_book_title).group(1)
-        book_subject = re.search('(.+) Notes for Professionals$', book_title).group(1)
-        book_description = 'A book about ' + book_subject
-        book_source_id = 'book/' + book_subject
-        str_with_book_url = algorithms_soup.find('button', class_='download')['onclick']
-        book_url = algorithms_url + re.search("location.href='(.+)'", str_with_book_url).group(1)
+        for page_url in page_urls:
+            page_response = requests.get(page_url)
+            page_soup = BeautifulSoup(page_response.text, 'html5lib')
 
-        topic_node_source_id = 'topic/' + book_subject
-        algorithms_topic_node = TopicNode(title=book_subject, source_id=topic_node_source_id)
-        channel.add_child(algorithms_topic_node)
-        doc_node = DocumentNode(
-            title=book_title,
-            description=book_description,
-            source_id=book_source_id,
-            license=get_license('CC BY-SA', copyright_holder='Creative Commons'),
-            language='en',
-            files=[DocumentFile(path=book_url, language='en')],
-        )
-        algorithms_topic_node.add_child(doc_node)
+            str_with_book_title = page_soup.find(id='header').find('h1').get_text()
+            book_title = re.search('(.+) book', str_with_book_title).group(1)
+            book_subject = re.search('(.+) Notes for Professionals$', book_title).group(1)
+            book_description = 'A book about ' + book_subject
+            book_source_id = 'book/' + book_subject
+            str_with_book_url = page_soup.find('button', class_='download')['onclick']
+            book_url = page_url + re.search("location.href='(.+)'", str_with_book_url).group(1)
+
+            topic_node_source_id = 'topic/' + book_subject
+            page_topic_node = TopicNode(title=book_subject, source_id=topic_node_source_id)
+            channel.add_child(page_topic_node)
+            doc_node = DocumentNode(
+                title=book_title,
+                description=book_description,
+                source_id=book_source_id,
+                license=get_license('CC BY-SA', copyright_holder='Creative Commons'),
+                language='en',
+                files=[DocumentFile(path=book_url, language='en')],
+            )
+            page_topic_node.add_child(doc_node)
+
         return channel
 
 
