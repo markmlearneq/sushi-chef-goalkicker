@@ -25,6 +25,7 @@ class GoalkickerChef(SushiChef):
 
         gk_url = 'https://' + self.channel_info['CHANNEL_SOURCE_DOMAIN'] + '/'
         gk_response = requests.get(gk_url)
+        gk_response.encoding = 'utf-8'
         gk_soup = BeautifulSoup(gk_response.text, 'html5lib')
 
         els_with_page_urls = gk_soup.find_all(class_='bookContainer')
@@ -32,6 +33,7 @@ class GoalkickerChef(SushiChef):
 
         for page_url in page_urls:
             page_response = requests.get(page_url)
+            page_response.encoding = 'utf-8'
             page_soup = BeautifulSoup(page_response.text, 'html5lib')
 
             str_with_book_title = page_soup.find(id='header').find('h1').get_text()
