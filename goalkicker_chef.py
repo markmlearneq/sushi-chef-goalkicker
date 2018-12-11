@@ -41,8 +41,11 @@ class GoalkickerChef(SushiChef):
 
             # Extract book info from page
             str_with_book_title = page_soup.find(id='header').find('h1').get_text()
-            book_title = re.search('(.+) book', str_with_book_title).group(1)
-            book_subject = re.search('(.+) Notes for Professionals$', book_title).group(1)
+            suffix = ' book'
+            book_title = str_with_book_title[:-len(suffix)] if str_with_book_title.endswith(suffix) else str_with_book_title
+            suffix = ' Notes for Professionals'
+            book_subject = book_title[:-len(suffix)] if book_title.endswith(suffix) else book_title
+
             book_description = 'A book about ' + book_subject
             book_source_id = 'book/' + book_subject
             str_with_book_url = page_soup.find('button', class_='download')['onclick']
