@@ -23,19 +23,23 @@ class GoalkickerChef(SushiChef):
     def construct_channel(self, **kwargs):
         channel = self.get_channel(**kwargs)
 
+        # Soupify goalkicker main page
         gk_url = 'https://' + self.channel_info['CHANNEL_SOURCE_DOMAIN'] + '/'
         gk_response = requests.get(gk_url)
         gk_response.encoding = 'utf-8'
         gk_soup = BeautifulSoup(gk_response.text, 'html5lib')
 
+        # Get urls for each goalkicker book
         els_with_page_urls = gk_soup.find_all(class_='bookContainer')
         page_urls = [gk_url + el.find('a')['href'] for el in els_with_page_urls]
 
         for page_url in page_urls:
+            # Soupify book page
             page_response = requests.get(page_url)
             page_response.encoding = 'utf-8'
             page_soup = BeautifulSoup(page_response.text, 'html5lib')
 
+            # Extract book info from page
             str_with_book_title = page_soup.find(id='header').find('h1').get_text()
             book_title = re.search('(.+) book', str_with_book_title).group(1)
             book_subject = re.search('(.+) Notes for Professionals$', book_title).group(1)
@@ -44,6 +48,7 @@ class GoalkickerChef(SushiChef):
             str_with_book_url = page_soup.find('button', class_='download')['onclick']
             book_url = page_url + re.search("location.href='(.+)'", str_with_book_url).group(1)
 
+            # Add book to channel tree
             topic_node_source_id = 'topic/' + book_subject
             page_topic_node = TopicNode(title=book_subject, source_id=topic_node_source_id)
             channel.add_child(page_topic_node)
