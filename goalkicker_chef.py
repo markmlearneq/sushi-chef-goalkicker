@@ -25,9 +25,7 @@ class GoalkickerChef(SushiChef):
 
         # Soupify goalkicker main page
         gk_url = 'https://' + self.channel_info['CHANNEL_SOURCE_DOMAIN'] + '/'
-        gk_response = requests.get(gk_url)
-        gk_response.encoding = 'utf-8'
-        gk_soup = BeautifulSoup(gk_response.text, 'html5lib')
+        gk_soup = get_soup(gk_url)
 
         # Get urls for each goalkicker book
         els_with_page_urls = gk_soup.find_all(class_='bookContainer')
@@ -35,9 +33,7 @@ class GoalkickerChef(SushiChef):
 
         for page_url in page_urls:
             # Soupify book page
-            page_response = requests.get(page_url)
-            page_response.encoding = 'utf-8'
-            page_soup = BeautifulSoup(page_response.text, 'html5lib')
+            page_soup = get_soup(page_url)
 
             # Extract book info from page
             str_with_book_title = page_soup.find(id='header').find('h1').get_text()
@@ -66,6 +62,13 @@ class GoalkickerChef(SushiChef):
             page_topic_node.add_child(doc_node)
 
         return channel
+
+
+def get_soup(url):
+    response = requests.get(url)
+    response.encoding = 'utf-8'
+    soup = BeautifulSoup(response.text, 'html5lib')
+    return soup
 
 
 if __name__ == '__main__':
